@@ -159,29 +159,3 @@ Tips: Slik ville jeg gjort det for add()-metoden:</br>
         verify(exactly = 1) { todoRepository.insertTodo(any()) }
     }
 ```
-
-### Oppgave 7 - Koble på database
-
-I denne oppgaven skal vi koble på en in-memory H2 SQL database, og lagre Todo-innslagene våre dit isteden.</br>
-Her bruker vi Spring-data sin innebygde namedParameterJdbcTemplate for å gjøre SQL-kall mot databasen.</br>
-Vi bruker Flyway for å sette opp databasestrukturen og håndtere versjonsmigrering.
-
-#### 7.1
-
-Vi begynner med å konfigurere opp H2-databasen. For å bruke H2 trenger du denne avhengigheten i prosjektet:
-
-```
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <version>2.3.230</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.flywaydb</groupId>
-      <artifactId>flyway-core</artifactId>
-      <version>10.17.0</version>
-    </dependency>
-```
-
-Du må også legge til noe ekstern Spring-konfigurasjon.
