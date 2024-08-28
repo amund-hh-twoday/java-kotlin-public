@@ -160,7 +160,7 @@ Tips: Slik ville jeg gjort det for add()-metoden:</br>
     }
 ```
 
-### Oppgave 7 - Koble på database
+### Oppgave 7 (Bonus) - Koble på database
 
 I denne oppgaven skal vi koble på en in-memory H2 SQL database, og lagre Todo-innslagene våre dit isteden.</br>
 Her bruker vi Spring-data sin innebygde namedParameterJdbcTemplate for å gjøre SQL-kall mot databasen.</br>
