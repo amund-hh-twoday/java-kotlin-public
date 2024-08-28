@@ -164,7 +164,6 @@ Tips: Slik ville jeg gjort det for add()-metoden:</br>
 
 I denne oppgaven skal vi koble på en in-memory H2 SQL database, og lagre Todo-innslagene våre dit isteden.</br>
 Her bruker vi Spring-data sin innebygde namedParameterJdbcTemplate for å gjøre SQL-kall mot databasen.</br>
-Vi bruker Flyway for å sette opp databasestrukturen og håndtere versjonsmigrering.
 
 #### 7.1
 
@@ -177,11 +176,37 @@ Vi begynner med å konfigurere opp H2-databasen. For å bruke H2 trenger du denn
       <version>2.3.230</version>
       <scope>runtime</scope>
     </dependency>
-    <dependency>
-      <groupId>org.flywaydb</groupId>
-      <artifactId>flyway-core</artifactId>
-      <version>10.17.0</version>
-    </dependency>
 ```
 
-Du må også legge til noe ekstern Spring-konfigurasjon.
+Du må også legge til noe ekstern Spring-konfigurasjon for å konfigurere H2-databasen:
+
+I src/main/resources/application.properties:
+
+```
+# Enabling H2 Console
+spring.h2.console.enabled=true
+#Turn Statistics on
+spring.jpa.properties.hibernate.generate_statistics=true
+logging.level.org.hibernate.stat=debug
+# Show all queries
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+logging.level.org.hibernate.type=trace
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.data.jpa.repositories.bootstrap-mode=default
+```
+
+#### 7.2
+
+Sett opp databasestrukturen i en SQL fil. Denne må ligge under src/main/resources.
+Strukturen må være tilsvarende som TodoEntry-klassen vi lagde istad.
+
+#### 7.3
+
+Lag en ny repository-klasse med samme metoder, men som bruker `NamedParameterJdbcTemplate`
+til å koble seg til databasen. Du må nå skrive SQL for å skrive / hente ut fra databasen.
+
+
+#### 7.4
+
+Skriv om funksjonaliteten i alle metodene og test med Postman
